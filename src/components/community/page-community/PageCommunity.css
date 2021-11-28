@@ -1,0 +1,21 @@
+.page-community {
+    flex-grow: 1;
+    min-height: 80vh;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.grid-rigth-side {
+    text-align: right;
+}
+
+.page-wallet-address {
+    padding-top: 3rem;
+}
+
+.page-metadata {
+    text-align: justify;
+    padding-top: 2rem;
+    width: 80%;
+    margin-left: 7rem;
+}
