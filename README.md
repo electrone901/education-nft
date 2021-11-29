@@ -1,24 +1,40 @@
-# NFT Cat Passport
+# Education NFT
+Education NFT is an educational platform that helps students, professors, institutions,  philanthropists and people to protect their intellectual ideas through a decentralized and transparent way using blockchain technology to document their journey from start to finish.
+
+Education NFT allows people to achieve their educational dreams by
+Connecting them with the right people, investor and mentors
+Providing them with the necessary tools and resources
+Allowing Individual/Institutions to fund student projects for further education and research support
+Creates the opportunity for students to secure their projects as NFT
+
+Data gathering with IPFS, analysis and learning pathway suggestions to develop more successful people
 
 
-NFT Cat Passport is a social dApp  for  cat lovers,and anyone who loves painting, design, or drawing.
 
-NFT Cat Passport it’s a platform that allows you to save important documents of your cat in a fun way. These documents contain important details such as your pet’s identification, ownership and medical information. It is a digital record of your pet’s vaccinations, medical procedures and other treatments that can be used when the pet goes missing, or when the pet is travelling or in case of an accident.
 
-NFT Cat Passport it’s also a marketplace where owners can sell, buy, and swap NFTs.
 
-With our NFT Pixels platform, anyone can create an NFT, customize it, or design one within minutes. Our simple and practical online art editor allows anyone with or without experience to create NFTs in a fun way. As well as to sell them in our marketplace.
+### How does it work?
+It's a simple process, just come up with a project/idea, start building, and get fund it. Make your dream come true and let the world discover your talent.
+Share your idea with the world:
+Share your awesome idea, project, research, or mission so others can financially support or contribute.
+Get a Non Fungible Token
+Each idea is represented as an NFT that holds your valuable work and ideas.
+Find contributors, investors, and mentors.
+Invite people, makers, mentors, and expert advisors to your project. Anyone can see ideas, but only members who purchase your idea NFT can access the community.
+Get fund it
+Offer potential funders incentives to invest in your idea.
 
-Whenever a viewer goes to the app he or she will be able to browse NFTs from different creators, see details from specific NFT and play for a chance to win an NFT.
 
-If the user successfully guessed the secret number, the user will be celebrated by confetti, and he/she will be able to mint the NFT. Try it, it is really fun!
 
-Then the app will notify you about your transaction, it should redirect the user to the polygon network to see the details of the transaction.
+### Future
+In the future we would like to implement:
+Support students for their education by offering grants, scholarships and more.
 
-Why Did I use IPFS?
+
+### Why Did I use IPFS?
 I wanted to use IPFS to design a simple and fun app where everyone can collaborate, learn about NFTs and experience them directly.
 
-How it's made?
+### How it's made?
 NFT Pixels application makes use of the following software:
 
 NFTStorage: the data is stored on NFTStorage IPFS, the generated hash (CID) will be used to view the details and to retrieve the NFT.
@@ -40,11 +56,7 @@ NFTStorage: the data is stored on NFTStorage IPFS, the generated hash (CID) will
  https://6g03v5crtshs99oqku7p81cj6dmeb9cs9pqbnlbu1t1tpcnnn90vsm0.siasky.net/
 
 
-# Cat Passport Maker Repo
-https://github.com/electrone901/cat-passport-maker.git
-
 # How it's made
-
 NFT Pixels application makes use of the following softwares:
 
 ### `NFTStorage` for data storage on IPFS that generates a transation hash used to retrive the NFT .

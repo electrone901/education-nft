@@ -19,9 +19,10 @@ import CustomizedInputBase from './pet-details/search/Search'
 
 function ProjectList() {
   const [petsData, setPetsData] = useState([])
+  console.log("🚀 ~ file: ProjectList.js ~ line 22 ~ ProjectList ~ petsData", petsData)
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  // history.push('/')
+
 
   useEffect(() => {
     const loadPets = async () => {

@@ -16,10 +16,12 @@ import DonateNFT from './components/donate-nft/DonateNFT'
 import Web3 from 'web3'
 // import MyPet from './abis/Pet.json'
 import community from './abis/Community.json'
+import randomNumChainLink from './abis/Random.json'
 
 function App() {
   const [account, setAccount] = useState('')
   const [contractData, setContractData] = useState('')
+  const [randomContract, setRandomContract] = useState('')
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -37,10 +39,7 @@ function App() {
   const getContract = async () => {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
-    console.log(
-      '🚀 ~ file: App.js ~ line 37 ~ getContract ~ accounts',
-      accounts,
-    )
+
     setAccount(accounts[0])
     const networkId = await web3.eth.net.getId()
     const networkData = community.networks[networkId]
@@ -49,8 +48,19 @@ function App() {
       const abi = community.abi
       const address = community.networks[networkId].address
       const myContract = new web3.eth.Contract(abi, address)
-
       setContractData(myContract)
+
+      // randomNumChainLink
+      const abiChainlink = randomNumChainLink.abi
+      const addressChainlink = randomNumChainLink.networks[networkId].address
+      const myRandom = new web3.eth.Contract(abiChainlink, addressChainlink)
+      const res = await myRandom.randomResult().call()
+      console.log("🚀 ~ file: App.js ~ line 58 ~ getContract ~ res", res)
+      
+      setRandomContract(myRandom)
+
+
+
     } else {
       window.alert(
         'Contract is not deployed to the detected network. Connect to the correct network!',
@@ -71,7 +81,6 @@ function App() {
         <Route exact path="/" component={LoadingPage} />
         <Route exact path="/old" component={Home} />
         <Switch>
-
           <Route exact path="/donate" component={DonateNFT} />
 
           <Route exact path="/create">
@@ -86,9 +95,9 @@ function App() {
             <LoadingPage account={account} contractData={contractData} />
           </Route>
 
-          {/* <Route path="/pet-details/:petId">
-            <PetDetails account={account} contractData={contractData} />
-          </Route> */}
+          <Route path="/play">
+            <PetDetails account={account} contractData={contractData} randomContract={randomContract} />
+          </Route>
 
           <Route path="/project/:projectId">
             <PageCommunity account={account} contractData={contractData} />

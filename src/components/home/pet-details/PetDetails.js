@@ -6,28 +6,24 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
-import Card from '@material-ui/core/Card'
+
 import Confetti from 'react-confetti'
 
 import { StylesProvider } from '@material-ui/core/styles'
-import {
-  TextField,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Avatar,
-  IconButton,
-} from '@material-ui/core'
+import { TextField, Card } from '@material-ui/core'
 
-import { apiKey } from '../../../'
+// import { apiKey } from '../../../'
 import './PetDetails.css'
 import { CircularStatic } from '../../commons/CircularProgressWithLabel'
 import SeeMoreWork from '../see-more-work/SeeMoreWork'
 import WebViewer from '@pdftron/webviewer'
 import { apiKeyport } from '../../APIKEYPORT'
 
-function PetDetails({ account, contractData }) {
+function PetDetails({ account, randomContract, contractData }) {
+  console.log("🚀 ~ file: PetDetails.js ~ line 23 ~ PetDetails ~ randomContract", randomContract)
+  // const nfts = [
+  //   `https://images.unsplash.com/photo-1618513847270-992347f2c59c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80``https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80``https://images.unsplash.com/photo-1621360841013-c7683c659ec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80``https://images.unsplash.com/photo-1617791160588-241658c0f566?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80``https://images.unsplash.com/photo-1634621388916-da61c670ffac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80``https://images.unsplash.com/photo-1635237755468-5fba69c13f29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80`,
+  // ]
   const viewer = useRef(null)
   const { petId } = useParams()
   const [petsData, setPetsData] = useState('')
@@ -192,13 +188,14 @@ function PetDetails({ account, contractData }) {
   }
 
   //  mint
-
   const mintWithNFTPort = (event) => {
     event.preventDefault()
     if (account === '') {
       account = '0x5Df598c222C4A7e8e4AB9f347dcBd924B6458382'
     }
-    console.log(' image', image)
+    const image =
+      'https://images.unsplash.com/photo-1635237755468-5fba69c13f29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80'
+
     const form = new FormData()
     form.append('file', image)
 
@@ -241,191 +238,84 @@ function PetDetails({ account, contractData }) {
           ''
         )}
 
-        <div className="">
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6} className="grid-container">
-              <div className="flex-container">
-                <h2>{petName} </h2>
-                <Button
-                  variant="contained"
-                  className="wallet-btn"
-                  color="primary"
-                  // onClick={ () => setShowGame(true)}
-                  onClick={checkConnect}
-                >
-                  Play to win an NFT
-                </Button>
-              </div>
-
-              <img className="img" src={image} alt="pet" />
-              <div className="flex-container">
-                <div>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
-                </div>
-
-                <Typography variant="body1" color="primary">
-                  {pet?.likes ? pet.likes : 0} Likes
-                </Typography>
-              </div>
-
-              <Typography
-                gutterBottom
-                variant="subtitle1"
-                className="details-text"
-              >
-                Pet's Details
-              </Typography>
-
-              <Typography variant="body2" gutterBottom className="details-text">
-                Full rights and credits to the owner @{petOwner}...
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Container>
-                <div className="container1">
-                  {/* show game */}
-                  {showGame ? (
-                    <div className="container1">
-                      <h2 className="title2">
-                        Dare to Play? Enter a number from 0 - 20
-                      </h2>
-                      <form className="form" noValidate autoComplete="off">
-                        <TextField
-                          id="outlined-basic"
-                          label="Guess a number between 0 - 20"
-                          variant="outlined"
-                          className="text-field"
-                          defaultValue={guessNumb}
-                          type="number"
-                          onChange={(e) => setGuessNumb(e.target.value)}
-                        />
-
-                        <Button
-                          size="large"
-                          variant="contained"
-                          color="primary"
-                          onClick={checkGuessNumber}
-                        >
-                          Go
-                        </Button>
-                      </form>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-
-                  <p className="feedbackMsg">{feedbackMsg}</p>
-
-                  {winner ? (
-                    <div>
-                      <p>Congrats, You win an special NFT!!</p>
-                      <Button
-                        variant="contained"
-                        className="wallet-btn2"
-                        color="secondary"
-                        onClick={mintNFT}
-                      >
-                        Mint NFT
-                      </Button>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                <br />
-
-                {codeHash ? (
-                  <Card className="code-hash">
-                    <Typography gutterBottom variant="subtitle1">
-                      Confirmation Transaction:
-                    </Typography>
-                    <p>
-                      TransactionHash: <span>{codeHash.transactionHash}</span>{' '}
-                    </p>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={
-                        'https://mumbai.polygonscan.com/tx/' +
-                        codeHash.transactionHash
-                      }
-                    >
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className="wallet-btn"
-                      >
-                        See transaction
-                      </Button>
-                    </a>
-                  </Card>
-                ) : (
-                  ''
-                )}
-              </Container>
-
-              <form noValidate autoComplete="off">
+        <Card>
+          <div className="container1">
+            {/* show game */}
+            <div className="container1">
+              <h2 className="title2">
+                Dare to Play? Enter a number from 0 - 20
+              </h2>
+              <form className="form" noValidate autoComplete="off">
                 <TextField
                   id="outlined-basic"
-                  label="Comment"
+                  label="Guess a number between 0 - 20"
                   variant="outlined"
-                  value={input}
-                  onChange={handleChange}
                   className="text-field"
+                  defaultValue={guessNumb}
+                  type="number"
+                  onChange={(e) => setGuessNumb(e.target.value)}
                 />
+
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  onClick={checkGuessNumber}
+                >
+                  Go
+                </Button>
               </form>
-              <Button type="submit" variant="contained" onClick={handleSubmit}>
-                Add comment
+            </div>
+
+            <p className="feedbackMsg">{feedbackMsg}</p>
+
+            {winner ? (
+              <div>
+                <p>Congrats, You win an special NFT!!</p>
+                <Button
+                  variant="contained"
+                  className="wallet-btn2"
+                  color="secondary"
+                  onClick={mintWithNFTPort}
+                >
+                  Mint NFT
+                </Button>
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+        </Card>
+
+        <br />
+
+        {codeHash ? (
+          <Card className="code-hash">
+            <Typography gutterBottom variant="subtitle1">
+              Confirmation Transaction:
+            </Typography>
+            <p>
+              TransactionHash: <span>{codeHash.transactionHash}</span>{' '}
+            </p>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={
+                'https://mumbai.polygonscan.com/tx/' + codeHash.transactionHash
+              }
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                className="wallet-btn"
+              >
+                See transaction
               </Button>
-              {/* Display comments  */}
-              {comment ? (
-                <ListItem style={{ paddingLeft: '0px' }}>
-                  <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className="inline"
-                          color="textPrimary"
-                        >
-                          {account}
-                        </Typography>
-                        {` ${comment}`}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-              ) : (
-                <h2>No comments</h2>
-              )}
-            </Grid>
-          </Grid>
-
-          {/* <div onClick={checkout} style={{ cursor: 'pointer' }}>
-            Unlock to see more work!{' '}
-            <span aria-label="locked" role="img">
-              🔒
-            </span>
-          </div> */}
-
-          <SeeMoreWork
-            petName={petName}
-            unlock={unlock}
-            setUnlock={setUnlock}
-            checkout={checkout}
-          />
-        </div>
+            </a>
+          </Card>
+        ) : (
+          ''
+        )}
       </Container>
     </StylesProvider>
   )

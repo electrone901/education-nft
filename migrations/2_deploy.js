@@ -1,5 +1,7 @@
-const Migrations = artifacts.require("Migrations");
+const MyCommunity = artifacts.require('Community')
+const MyRandom = artifacts.require('Random')
 
 module.exports = function (deployer) {
-  deployer.deploy(Migrations);
-};
+  deployer.deploy(MyCommunity)
+  deployer.deploy(MyRandom)
+}

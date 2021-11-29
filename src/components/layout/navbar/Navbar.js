@@ -126,6 +126,10 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
               Create
             </Button>
 
+            <Button className="whiteLink" component={Link} to="/play">
+              Earn&Play
+            </Button>
+
             <div className="grow" />
             <div className="sectionDesktop">
               {account ? (
