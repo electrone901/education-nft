@@ -70,7 +70,6 @@ function App() {
   })
 
   const logOut = (e) => {
-    console.log('logging out!')
     // setLoading(true)
     uauth.logout().catch((error) => {
       console.error('profile error:', error)
