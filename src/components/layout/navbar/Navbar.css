@@ -76,4 +76,5 @@
     color: white;
     font-weight: 800;
     text-transform: none;
+    cursor: not-allowed;
 }

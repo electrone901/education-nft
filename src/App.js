@@ -16,7 +16,9 @@ import DonateNFT from './components/donate-nft/DonateNFT'
 import Web3 from 'web3'
 // import MyPet from './abis/Pet.json'
 import community from './abis/Community.json'
+import UAuth from '@uauth/js'
 import randomNumChainLink from './abis/Random.json'
+import { clientID, clientSecret } from './unstoppable'
 
 function App() {
   const [account, setAccount] = useState('')
@@ -49,18 +51,6 @@ function App() {
       const address = community.networks[networkId].address
       const myContract = new web3.eth.Contract(abi, address)
       setContractData(myContract)
-
-      // randomNumChainLink
-      const abiChainlink = randomNumChainLink.abi
-      const addressChainlink = randomNumChainLink.networks[networkId].address
-      const myRandom = new web3.eth.Contract(abiChainlink, addressChainlink)
-      const res = await myRandom.randomResult().call()
-      console.log("🚀 ~ file: App.js ~ line 58 ~ getContract ~ res", res)
-      
-      setRandomContract(myRandom)
-
-
-
     } else {
       window.alert(
         'Contract is not deployed to the detected network. Connect to the correct network!',
@@ -68,16 +58,48 @@ function App() {
     }
   }
 
+  // const connectWallet = async () => {
+  //   await loadWeb3()
+  //   await getContract()
+  // }
+
+  const uauth = new UAuth({
+    clientID: clientID,
+    clientSecret: clientSecret,
+    redirectUri: 'https://educationconnec.netlify.app/callback',
+  })
+
+  const logOut = (e) => {
+    console.log('logging out!')
+    // setLoading(true)
+    uauth.logout().catch((error) => {
+      console.error('profile error:', error)
+      // setLoading(false)
+    })
+  }
+
   const connectWallet = async () => {
-    await loadWeb3()
-    await getContract()
+    try {
+      const authorization = await uauth.loginWithPopup()
+      const idToken = await authorization.idToken
+      const unstoppableDomain = await idToken.sub
+      setAccount(unstoppableDomain)
+
+      console.log('authorization', authorization)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   console.log('contractData', contractData)
   return (
     <Router>
       <div className="cl">
-        <Navbar account={account} connectWallet={connectWallet} />
+        <Navbar
+          account={account}
+          connectWallet={connectWallet}
+          logOut={logOut}
+        />
         <Route exact path="/" component={LoadingPage} />
         <Route exact path="/old" component={Home} />
         <Switch>
@@ -96,7 +118,11 @@ function App() {
           </Route>
 
           <Route path="/play">
-            <PetDetails account={account} contractData={contractData} randomContract={randomContract} />
+            <PetDetails
+              account={account}
+              contractData={contractData}
+              randomContract={randomContract}
+            />
           </Route>
 
           <Route path="/project/:projectId">

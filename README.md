@@ -9,10 +9,6 @@ Creates the opportunity for students to secure their projects as NFT
 
 Data gathering with IPFS, analysis and learning pathway suggestions to develop more successful people
 
-
-
-
-
 ### How does it work?
 It's a simple process, just come up with a project/idea, start building, and get fund it. Make your dream come true and let the world discover your talent.
 Share your idea with the world:
