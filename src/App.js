@@ -24,7 +24,10 @@ function App() {
   const [account, setAccount] = useState('')
   const [contractData, setContractData] = useState('')
   const [randomContract, setRandomContract] = useState('')
-
+  // const connectWallet = async () => {
+  //   await loadWeb3()
+  //   await getContract()
+  // }
   const loadWeb3 = async () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
@@ -58,11 +61,6 @@ function App() {
     }
   }
 
-  // const connectWallet = async () => {
-  //   await loadWeb3()
-  //   await getContract()
-  // }
-
   const uauth = new UAuth({
     clientID: clientID,
     clientSecret: clientSecret,
@@ -70,10 +68,8 @@ function App() {
   })
 
   const logOut = (e) => {
-    // setLoading(true)
     uauth.logout().catch((error) => {
       console.error('profile error:', error)
-      // setLoading(false)
     })
   }
 
